@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="column column-form column-2">
+        <button (click)="showHideDist()">Distribuição por Degree</button>
+    </div>
+    <div class="column column-form column-2">
+        <button (click)="add300Students()">Adicionar 300 Students</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="column column-form column-3">
+        <div class="row">
+            <div class="column column-form column-4">
+                Degree: 
+            </div>
+            <div class="column column-form column-8">
+                <select class="input-form"  (change)="filterDegree($event.target.value)">
+                    <option value="-1">Mostrar Todos</option>
+                    <option *ngFor="let degree of degrees" [value]="degree.id" >
+                        {{degree.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="column column-form column-4">
+                Class: 
+            </div>
+            <div class="column column-form column-8">
+                <select class="input-form"  (change)="filterClass($event.target.value)">
+                    <option value="-1">Mostrar Todos</option>
+                    <option *ngFor="let clas of classes" [value]="clas.id" >
+                        {{clas.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="chartDiv" class="column column-form column-6">
+        <div id="chart">
+        <div name="Bar" id="Bar" *ngFor="let deg of this.degrees; let i = index">{{deg.name}}: {{degreeDistShow[i]}}</div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let student of students; let i = index">
+    <div class="row" *ngIf="showStudent(student.degreeId, student.classId)" >
+        <div class="column column-form column-9">
+            <div class="row">
+                <div class="column column-form column-1">
+                    id:
+                </div>
+                <div class="column column-form column-2">
+                    <input type="number" class="input-form" disabled [value]="student.id">
+                </div>
+
+                <div class="column column-form column-1">
+                    <button (click)="openEdit(i)" *ngIf="!edit[i]">Editar</button>
+                    <button (click)="openEdit(i)" *ngIf="edit[i]" (click)="updateStudent(i)">Salvar</button>
+                </div>
+                <div class="column column-form column-1">
+                    <button (click)="openEdit(i)" *ngIf="edit[i]" (click)="rollbackStudent(i)">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column column-form column-1">
+                    RA:
+                </div>
+                <div class="column column-form column-2">
+                    <input type="text" class="input-form" [disabled]="!edit[i]" [(ngModel)]="student.ra">
+                </div>
+                <div class="column column-form column-1">
+                </div>
+                <div class="column column-form column-1">
+                    Nome:
+                </div>
+                <div class="column column-form column-6">
+                    <input type="text" class="input-form" [disabled]="!edit[i]" [(ngModel)]="student.name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="column column-form column-1">
+                    Degree:
+                </div>
+                <div class="column column-form column-3">
+                    <select class="input-form" [disabled]="!edit[i]" [(ngModel)]="student.degreeId">
+                        <option *ngFor="let degree of degrees" [ngValue]="degree.id" [selected]="degree.id == student.degreeId">
+                            {{degree.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="column column-form column-1">
+                    Class:
+                </div>
+                <div class="column column-form column-2">
+                    <select class="input-form" [disabled]="!edit[i]" [(ngModel)]="student.classId">
+                        <option *ngFor="let clas of classes" [ngValue]="clas.id" [selected]="clas.id == student.classId">
+                            {{clas.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

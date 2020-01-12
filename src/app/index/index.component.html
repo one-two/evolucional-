@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="column column-2">
+        <ul>
+            <li><a (click)="createComponent('home')">Home</a></li>
+            <li><a (click)="createComponent('page1')">Alunos(Tela 1)</a></li>
+            <li><a (click)="createComponent('page2')">Professores(Tela 2)</a></li>
+        </ul>
+    </div>
+    <div class="column column-10">
+        <h1>{{subtitle}}</h1>
+        <div class="row">
+                <template #telacontainer>
+                    <section *ngIf="showSection">
+                    <!--select class="mainselection" (change)="navigateTo($event.target.value)" size="10">
+                        <option *ngFor="let char of chars" [value]="char.id">
+                            {{char.name}}
+                        </option>
+                    </select-->
+                    </section>
+                </template>
+        </div>
+    </div>
+</div>
+

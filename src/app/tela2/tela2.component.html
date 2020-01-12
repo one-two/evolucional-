@@ -1,0 +1,151 @@
+<div class="row">
+
+    <div class="column column-form column-2">
+        <button (click)="showAddRel = !showAddRel">Adicionar Nova Relationship</button>
+    </div>
+</div>
+
+<div class="row" *ngIf="showAddRel">
+    <div class="column column column-9">
+        <div class="row">
+
+            <div class="column column-form column-1">
+                Nome:
+            </div>
+            <div class="column column-form column-2">
+                <input type="text" class="input-form" [(ngModel)]="newRel.name">
+            </div>
+
+            <div class="column column-form column-1">
+                Matéria: 
+            </div>
+            <div class="column column-form column-2">
+                <input type="text" class="input-form" [(ngModel)]="newRel.matter">
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column-form column-1">
+                Degree:
+            </div>
+            <div class="column column-form column-3">
+                <select class="input-form"  (change)="newRel.degree = ($event.target.value)">
+                    <option value="-1" selected disabled hidden>Selecione</option>
+                    <option *ngFor="let degree of degrees" [value]="degree.id" >
+                        {{degree.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="column column-form column-1">
+                Class:
+            </div>
+            <div class="column column-form column-3">
+                <select class="input-form"  (change)="newRel.class = ($event.target.value)">
+                    <option value="-1" selected disabled hidden>Selecione</option>
+                    <option *ngFor="let clas of classes" [value]="clas.id" >
+                        {{clas.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column column-form column-2">
+                <button (click)="addRelation()">Adicionar</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="errorAddRelation">
+            <div class="column error column-5">
+                <span>{{errMsg}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="successAddRelation">
+    <div class="column success column-4">
+        <span>Adicionado com sucesso</span>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="column column-form column-3">
+        <div class="row">
+            <div class="column column-form column-4">
+                Degree: 
+            </div>
+            <div class="column column-form column-8">
+                <select class="input-form"  (change)="filterDegree($event.target.value)">
+                    <option value="-1">Mostrar Todos</option>
+                    <option *ngFor="let degree of degrees" [value]="degree.id" >
+                        {{degree.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="column column-form column-4">
+                Class: 
+            </div>
+            <div class="column column-form column-8">
+                <select class="input-form"  (change)="filterClass($event.target.value)">
+                    <option value="-1">Mostrar Todos</option>
+                    <option *ngFor="let clas of classes" [value]="clas.id" >
+                        {{clas.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let relation of relationships; let i = index">
+    <div class="row" *ngIf="showRelation(relation.degrees)" >
+        <div class="column column-form column-9">
+            <div class="row">
+                <div class="column column-form column-1">
+                    id:
+                </div>
+                <div class="column column-form column-2">
+                    <input type="number" class="input-form" disabled [value]="relation.teacherId">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column column-form column-1">
+                    Nome:
+                </div>
+                <div class="column column-form column-2">
+                    <input type="text" class="input-form" disabled [value]="teachers[relation.teacherId-1].name">
+                </div>
+                <div class="column column-form column-1">
+                </div>
+                <div class="column column-form column-1">
+                    Materia:
+                </div>
+                <div class="column column-form column-6">
+                    <input type="text" class="input-form" disabled [value]="matters[relation.matterId-1].name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="column column-form column-1">
+                    Degrees/Classes:
+                </div>
+                <div class="column column-form column-6">
+                    <ul>
+                        <li *ngFor="let degree of relation.degrees;let di = index">
+                            {{degrees[degree.degreeId-1].name}}
+                            <ul>
+                                <li *ngFor="let clas of relation.degrees[di].classes; let ci = index">
+                                    <a (click)="showStudents(i, degree.degreeId,clas.classId, di, ci)">{{classes[clas.classId-1].name}}</a>
+                                    <ul [id]="''+i+di+ci" >
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

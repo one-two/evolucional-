@@ -1,0 +1,21 @@
+#chart {
+    width: 100%;
+    background-color: grey;
+    white-space: nowrap;
+  }
+  
+  #Bar {
+    height: 30px;
+    background-color: #09A5DF;
+    text-align: left; 
+    line-height: 30px; 
+    color: white;
+    /* -webkit-transform-origin: 0 100%;
+    -webkit-transform: rotate(270deg);
+    -moz-transform-origin: 0 100%;
+    -moz-transform: rotate(270deg);
+    -ms-transform-origin: 0 100%;
+    -ms-transform: rotate(270deg);
+    transform-origin: top;
+    transform: rotate(270deg);    */
+  }
