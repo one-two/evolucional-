@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="column column-form column-2">
+    <div class="column column-form column-3">
         <button (click)="showHideDist()">Distribuição por Degree</button>
     </div>
-    <div class="column column-form column-2">
+    <div class="column column-form column-3">
         <button (click)="add300Students()">Adicionar 300 Students</button>
     </div>
 </div>
@@ -57,11 +57,11 @@
                     <input type="number" class="input-form" disabled [value]="student.id">
                 </div>
 
-                <div class="column column-form column-1">
+                <div class="column column-form column-2">
                     <button (click)="openEdit(i)" *ngIf="!edit[i]">Editar</button>
                     <button (click)="openEdit(i)" *ngIf="edit[i]" (click)="updateStudent(i)">Salvar</button>
                 </div>
-                <div class="column column-form column-1">
+                <div class="column column-form column-2">
                     <button (click)="openEdit(i)" *ngIf="edit[i]" (click)="rollbackStudent(i)">Cancelar</button>
                 </div>
             </div>
